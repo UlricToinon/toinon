@@ -1,0 +1,29 @@
+body{
+  background: url('/assets/black_lozenge.png');
+}
+
+header{
+  .logo{
+    margin-top: 50px;
+    a{
+      text-align: center;
+      img{
+        max-width: 100%;
+      }
+    }
+  } 
+}
+
+footer{
+  #social-network{
+    background-color: #282828;
+    border-top: 1px solid #d58422;
+    border-bottom: 1px solid #d58422;
+  }
+  .social-link{
+    padding: 10px;
+    img{
+      max-width: 100%;
+    }
+  }
+}
