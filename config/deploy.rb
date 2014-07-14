@@ -89,13 +89,13 @@ namespace :deploy do
   %w[start stop restart].each do |command|
     desc "#{command} unicorn server"
     task command, roles: :app, except: {no_release: true} do
-      run "sed -i \"s/^M//\" /etc/init.d/unicorn_toinon"
       run "/etc/init.d/unicorn_toinon #{command}"
     end
   end
 
   task :setup_config, roles: :app do
     sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/toinon"
+    sudo "sed -i \"s/^M//\" #{current_path}/config/unicorn_init.sh"
     sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_toinon"
     run "mkdir -p #{shared_path}/config"
     put File.read("config/database.yml"), "#{shared_path}/config/database.yml"
