@@ -68,16 +68,16 @@ end
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
-group :production do
-  gem 'unicorn'
-end
+# group :production do
+#   gem 'unicorn'
+# end
 
 
 # Use Capistrano for deployment
 gem 'capistrano', '~> 2.15.5'
 gem 'capistrano-ext'
 gem 'rvm-capistrano'
-gem 'unicorn'
+# gem 'unicorn'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
