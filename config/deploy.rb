@@ -89,6 +89,7 @@ namespace :deploy do
   %w[start stop restart].each do |command|
     desc "#{command} unicorn server"
     task command, roles: :app, except: {no_release: true} do
+      run "sed -i \"s/^M//\" /etc/init.d/unicorn_toinon"
       run "/etc/init.d/unicorn_toinon #{command}"
     end
   end
