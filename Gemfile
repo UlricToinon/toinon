@@ -68,9 +68,9 @@ end
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
-# group :production do
-#   gem 'unicorn'
-# end
+group :production do
+  gem 'unicorn'
+end
 
 
 # Use Capistrano for deployment
