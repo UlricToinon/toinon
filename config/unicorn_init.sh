@@ -3,7 +3,7 @@ set -e
 
 # Feel free to change any of the following variables for your app:
 TIMEOUT=${TIMEOUT-60}
-APP_ROOT=/home/deploy/webapps/toinon/current
+APP_ROOT=/home/deploy/webapps/$1/current
 PID=$APP_ROOT/tmp/pids/unicorn.pid
 CMD="cd $APP_ROOT; bundle exec unicorn -D -c $APP_ROOT/config/unicorn.rb -E production"
 AS_USER=deploy
@@ -12,22 +12,22 @@ set -u
 OLD_PIN="$PID.oldbin"
 
 sig () {
-  test -s "$PID" && kill -$1 `cat $PID`
+  test -s "$PID" && kill -$2 `cat $PID`
 }
 
 oldsig () {
-  test -s $OLD_PIN && kill -$1 `cat $OLD_PIN`
+  test -s $OLD_PIN && kill -$2 `cat $OLD_PIN`
 }
 
 run () {
   if [ "$(id -un)" = "$AS_USER" ]; then
-    eval $1
+    eval $2
   else
-    su -c "$1" - $AS_USER
+    su -c "$2" - $AS_USER
   fi
 }
 
-case "$1" in
+case "$2" in
 start)
   sig 0 && echo >&2 "Already running" && exit 0
   run "$CMD"
