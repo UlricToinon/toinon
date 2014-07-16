@@ -1,6 +1,7 @@
 set :stages, %w(production staging development)
 require 'capistrano/ext/multistage'
 require 'rvm/capistrano'
+require 'unicorn'
 require 'bundler/capistrano'
 
 set :application, 'Toinon'
