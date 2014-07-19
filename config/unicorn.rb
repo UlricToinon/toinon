@@ -11,7 +11,7 @@ user "deploy"
 
 # Help ensure your application will always spawn in the symlinked
 # "current" directory that Capistrano sets up.
-APP_PATH = "/home/deploy/webapps/toinon/current"
+APP_PATH = "/var/www/toinon/current"
 working_directory APP_PATH
 
 # listen on both a Unix domain socket and a TCP port,
@@ -64,5 +64,5 @@ after_fork do |server, worker|
 end
 
 before_exec do |server|
-  ENV["BUNDLE_GEMFILE"] = "/home/deploy/webapps/toinon/current/Gemfile"
+  ENV["BUNDLE_GEMFILE"] = "/var/www/toinon/current/Gemfile"
 end

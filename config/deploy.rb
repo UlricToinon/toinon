@@ -10,7 +10,7 @@ set :default_stage, 'development'
 
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/home/deploy/webapps/toinon'
+set :deploy_to, '/var/www/toinon'
 
 # Default value for :scm is :git
 set :scm, :git
@@ -34,7 +34,7 @@ namespace :deploy do
   %w[start stop restart reload].each do |command|
     desc "#{command} unicorn server"
     task command, roles: :app, except: {no_release: true} do
-      run "sudo /etc/init.d/unicorn_toinon #{command}"
+      sudo "/etc/init.d/unicorn_toinon #{command}"
     end
   end
 
