@@ -25,65 +25,9 @@ set :use_sudo, false
 set :ssh_options, {:forward_agent => true}
 
 set :bundle_flags, "--quiet"
-# Default value for :format is :pretty
-# set :format, :pretty
 
-# Default value for :log_level is :debug
-# set :log_level, :debug
-
-# Default value for :pty is false
-# set :pty, true
-
-# Default value for :linked_files is []
-# set :linked_files, %w{config/database.yml}
-
-# Default value for linked_dirs is []
-# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-
-# Default value for default_env is {}
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
-
-# Default value for keep_releases is 5
-# set :keep_releases, 5
 
 default_run_options[:pty] = true
-
-# after "deploy:restart", "deploy:cleanup"
-# namespace :deploy do
-
-#   desc "symlink shared files"
-#   task :symlink_shared, :roles => :app do
-#     run "ln -nfs #{shared_path}/system/mongoid.yml #{release_path}/config/mongoid.yml"
-#     run "ln -nfs #{shared_path}/system/application.yml #{release_path}/config/application.yml"
-#   end
-
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-
-#   %w[start stop restart].each do |command|
-#     desc "#{command} unicorn server"
-#     task command, roles: :app, except: {no_release: true} do
-#       run "/etc/init.d/unicorn_toinon #{command}"
-#     end
-#   end
-
-#   task :setup_config, roles: :app do
-#     sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/toinon"
-#     sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_toinon"
-#     run "mkdir -p #{shared_path}/config"
-#     put File.read("config/database.yml"), "#{shared_path}/config/database.yml"
-#     puts "Now edit the config files in #{shared_path}."
-#   end
-#   after "deploy:setup", "deploy:setup_config"
-
-# end
-# before "deploy:assets:precompile", "deploy:symlink_shared"
-
-# # Unicorn
-# require 'capistrano-unicorn'
-# after 'deploy:restart', 'unicorn:reload'    # app IS NOT preloaded
-# after 'deploy:restart', 'unicorn:restart'   # app preloaded
 
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
