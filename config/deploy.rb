@@ -24,6 +24,7 @@ set :keep_releases, 5
 set :use_sudo, false
 set :ssh_options, {:forward_agent => true}
 
+set :bundle_flags, "--quiet"
 # Default value for :format is :pretty
 # set :format, :pretty
 
