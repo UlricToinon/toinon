@@ -23,7 +23,7 @@ worker_processes 4
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
-listen "/home/deploy/webapps/toinon/shared/sockets/unicorn.toinon.sock", :backlog => 128
+listen "/tmp/unicorn.toinon.sock", :backlog => 128
 
 # Preload our app for more speed
 preload_app false
