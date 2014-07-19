@@ -73,7 +73,6 @@ gem 'unicorn', :platforms => :ruby # linux
 
 # Use Capistrano for deployment
 gem 'capistrano', '~> 2.15.5'
-gem 'capistrano-ext'
 gem 'rvm-capistrano'
 # gem 'unicorn'
 

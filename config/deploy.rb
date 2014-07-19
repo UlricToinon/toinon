@@ -1,8 +1,8 @@
-set :stages, %w(production staging development)
 require 'capistrano/ext/multistage'
 require 'rvm/capistrano'
 
 require 'bundler/capistrano'
+set :stages, %w(production staging development)
 
 set :application, 'Toinon'
 set :repository, 'git@github.com:UlricToinon/Toinon.git'
@@ -27,41 +27,21 @@ set :bundle_flags, "--quiet"
 
 default_run_options[:pty] = true
 
-after "deploy", "deploy:cleanup" # keep only the last 5 releases
+after 'deploy', 'deploy:cleanup'
+after 'deploy', 'deploy:migrate'
 
 namespace :deploy do
-  %w[start stop restart].each do |command|
+  %w[start stop restart reload].each do |command|
     desc "#{command} unicorn server"
     task command, roles: :app, except: {no_release: true} do
-      sudo "sh /etc/init.d/unicorn_toinon #{command}"
+      run "sudo /etc/init.d/unicorn_toinon #{command}"
     end
   end
 
-  task :setup_config, roles: :app do
-    sudo "ln -nfs /home/deploy/unicorn/unicorn_init_toinon.sh /etc/init.d/unicorn_toinon"
-    run "mkdir -p #{shared_path}/config"
-    put File.read("config/database.yml"), "#{shared_path}/config/database.yml"
-    puts "Now edit the config files in #{shared_path}."
-  end
-  after "deploy:setup", "deploy:setup_config"
-
-  task :symlink_config, roles: :app do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-  end
-  after "deploy:finalize_update", "deploy:symlink_config"
-
-  desc "Make sure local git is in sync with remote."
-  task :check_revision, roles: :web do
-    unless `git rev-parse HEAD` == `git rev-parse origin/master`
-      puts "WARNING: HEAD is not the same as origin/master"
-      puts "Run `git push` to sync changes."
-      exit
-    end
-  end
-  before "deploy", "deploy:check_revision"
+  # Use this if you know what you are doing.
+  #
+  # desc "Zero-Downtime restart of Unicorn"
+  # task :restart, :except => { :no_release => true } do
+  #   run "sudo /etc/init.d/unicorn_#{application} reload"
+  # end
 end
-
-# Unicorn
-require 'capistrano-unicorn'
-after 'deploy:restart', 'unicorn:reload'    # app IS NOT preloaded
-after 'deploy:restart', 'unicorn:restart'   # app preloaded
