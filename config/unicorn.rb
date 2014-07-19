@@ -1,15 +1,80 @@
-root = "/home/deploy/webapps/toinon/current"
-working_directory root
-pid "#{root}/tmp/pids/unicorn.pid"
-stderr_path "#{root}/log/unicorn.log"
-stdout_path "#{root}/log/unicorn.log"
+# root = "/home/deploy/webapps/toinon/current"
+# working_directory root
+# pid "#{root}/tmp/pids/unicorn.pid"
+# stderr_path "#{root}/log/unicorn.log"
+# stdout_path "#{root}/log/unicorn.log"
 
-listen "/tmp/unicorn.toinon.sock"
-worker_processes 2
+# listen "/tmp/unicorn.toinon.sock"
+# worker_processes 2
+# timeout 30
+
+# # Force the bundler gemfile environment variable to
+# # reference the capistrano "current" symlink
+# before_exec do |_|
+#   ENV["BUNDLE_GEMFILE"] = File.join(root, 'Gemfile')
+# end
+
+# config/unicorn.rb
+env = ENV["RAILS_ENV"] || "production"
+
+# See http://unicorn.bogomips.org/Unicorn/Configurator.html for complete
+# documentation.
+worker_processes 4
+
+# listen on both a Unix domain socket and a TCP port,
+# we use a shorter backlog for quicker failover when busy
+listen "/home/deploy/webapps/toinon/shared/sockets/unicorn.toinon.sock", :backlog => 128
+
+# Preload our app for more speed
+preload_app false
+
+# nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
 
-# Force the bundler gemfile environment variable to
-# reference the capistrano "current" symlink
-before_exec do |_|
-  ENV["BUNDLE_GEMFILE"] = File.join(root, 'Gemfile')
+pid "/home/deploy/webapps/toinon/shared/pids/unicorn.toinon.pid"
+
+# Production specific settings
+if env == "production"
+  # Help ensure your application will always spawn in the symlinked
+  # "current" directory that Capistrano sets up.
+  working_directory "/home/deploy/webapps/toinon/current"
+
+  # feel free to point this anywhere accessible on the filesystem
+  user 'deploy'
+  shared_path = "/home/deploy/webapps/toinon/shared"
+
+  stderr_path "#{shared_path}/log/unicorn.stderr.log"
+  stdout_path "#{shared_path}/log/unicorn.stdout.log"
+end
+
+before_fork do |server, worker|
+  # the following is highly recomended for Rails + "preload_app true"
+  # as there's no need for the master process to hold a connection
+  if defined?(ActiveRecord::Base)
+    ActiveRecord::Base.connection.disconnect!
+  end
+
+  # Before forking, kill the master process that belongs to the .oldbin PID.
+  # This enables 0 downtime deploys.
+  old_pid = "/home/deploy/webapps/toinon/shared/pids/unicorn.toinon.pid.oldbin"
+  if File.exists?(old_pid) && server.pid != old_pid
+    begin
+      Process.kill("QUIT", File.read(old_pid).to_i)
+    rescue Errno::ENOENT, Errno::ESRCH
+      # someone else did our job for us
+    end
+  end
+end
+
+after_fork do |server, worker|
+  # the following is *required* for Rails + "preload_app true",
+  if defined?(ActiveRecord::Base)
+    ActiveRecord::Base.establish_connection
+  end
+
+  # if preload_app is true, then you may also want to check and
+  # restart any other shared sockets/descriptors such as Memcached,
+  # and Redis.  TokyoCabinet file handles are safe to reuse
+  # between any number of forked children (assuming your kernel
+  # correctly implements pread()/pwrite() system calls)
 end
