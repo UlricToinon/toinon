@@ -64,6 +64,9 @@ set :scm, "git"
 set :repository, "git@github.com:UlricToinon/Toinon.git"
 set :branch, "master"
 
+set :deploy_via, :copy
+set :keep_releases, 5
+
 set :default_run_options, {:pty => true}
 set :ssh_options, {:forward_agent => true}
 
