@@ -55,8 +55,8 @@ set :stages, %w(production staging development)
 
 set :application, "toinon_production"
 set :user, "deploy"
-set :port, 65432
-set :deploy_to, "/home/#{user}/apps/#{application}"
+set :port, 22
+set :deploy_to, "/home/#{user}/sites/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
