@@ -1,0 +1,8 @@
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: toinon_production
+  host: localhost
+  pool: 5
+  username: postgres
+  password: postgres
