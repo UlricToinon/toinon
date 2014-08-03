@@ -4,5 +4,5 @@ production:
   database: toinon_production
   host: localhost
   pool: 5
-  username: postgres
+  username: deploy
   password: postgres
