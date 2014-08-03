@@ -66,7 +66,6 @@ group :development, :test do
 end
 
 group :production do
-  gem 'pg', '0.17.1'
 
   # Use unicorn as the app server
   gem 'unicorn', :platforms => :ruby # linux
