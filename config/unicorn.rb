@@ -1,35 +1,35 @@
-# Use at least one worker per core if you're on a dedicated server,
-# more will usually help for _short_ waits on databases/caches.
+# config/unicorn.rb
+env = ENV["RAILS_ENV"] || "production"
+
+# See http://unicorn.bogomips.org/Unicorn/Configurator.html for complete
+# documentation.
 worker_processes 4
-
-# Since Unicorn is never exposed to outside clients, it does not need to
-# run on the standard HTTP port (80), there is no reason to start Unicorn
-# as root unless it's from system init scripts.
-# If running the master process as root and the workers as an unprivileged
-# user, do this to switch euid/egid in the workers (also chowns logs):
-user "deploy"
-
-# Help ensure your application will always spawn in the symlinked
-# "current" directory that Capistrano sets up.
-APP_PATH = "/var/www/toinon/current"
-working_directory APP_PATH
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
-listen "/tmp/unicorn.toinon.sock", :backlog => 64
-listen 8080, :tcp_nopush => true
+listen "/home/deploy/sites/toinon_production/shared/sockets/unicorn.toinon_production.sock", :backlog => 128
+
+# Preload our app for more speed
+preload_app false
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
 
-# feel free to point this anywhere accessible on the filesystem
-pid APP_PATH + "/tmp/pids/unicorn.pid"
+pid "/home/deploy/sites/toinon_production/shared/pids/unicorn.toinon_production.pid"
 
-# By default, the Unicorn logger will write to stderr.
-# Additionally, ome applications/frameworks log to stderr or stdout,
-# so prevent them from going to /dev/null when daemonized here:
-stderr_path APP_PATH + "/log/unicorn.toinon.stderr.log"
-stdout_path APP_PATH + "/log/unicorn.toinon.stdout.log"
+# Production specific settings
+if env == "production"
+  # Help ensure your application will always spawn in the symlinked
+  # "current" directory that Capistrano sets up.
+  working_directory "/home/deploy/sites/toinon_production/current"
+
+  # feel free to point this anywhere accessible on the filesystem
+  user 'deploy'
+  shared_path = "/home/deploy/sites/toinon_production/shared"
+
+  stderr_path "#{shared_path}/log/unicorn.stderr.log"
+  stdout_path "#{shared_path}/log/unicorn.stdout.log"
+end
 
 before_fork do |server, worker|
   # the following is highly recomended for Rails + "preload_app true"
@@ -40,7 +40,7 @@ before_fork do |server, worker|
 
   # Before forking, kill the master process that belongs to the .oldbin PID.
   # This enables 0 downtime deploys.
-  old_pid = "/tmp/unicorn.toinon.pid.oldbin"
+  old_pid = "/home/deploy/sites/toinon_production/shared/pids/unicorn.toinon_production.pid.oldbin"
   if File.exists?(old_pid) && server.pid != old_pid
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)
@@ -61,8 +61,4 @@ after_fork do |server, worker|
   # and Redis.  TokyoCabinet file handles are safe to reuse
   # between any number of forked children (assuming your kernel
   # correctly implements pread()/pwrite() system calls)
-end
-
-before_exec do |server|
-  ENV["BUNDLE_GEMFILE"] = "/var/www/toinon/current/Gemfile"
 end
