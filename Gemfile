@@ -64,11 +64,17 @@ group :development, :test do
   gem 'meta_request', '~> 0.3.0'
   gem 'capistrano-unicorn', require: false
 end
+
+group :production do
+  gem 'pg', '0.17.1'
+
+  # Use unicorn as the app server
+  gem 'unicorn', :platforms => :ruby # linux
+end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-# Use unicorn as the app server
-gem 'unicorn', :platforms => :ruby # linux
+
 
 
 # Use Capistrano for deployment
