@@ -53,17 +53,6 @@ require "rvm/capistrano"
 
 set :stages, %w(production staging development)
 
-set :application, "toinon_production"
-set :user, "deploy"
-set :port, 22
-set :deploy_to, "/home/#{user}/sites/#{application}"
-set :deploy_via, :remote_cache
-set :use_sudo, false
-
-set :scm, "git"
-set :repository, "git@github.com:UlricToinon/Toinon.git"
-set :branch, "master"
-
 set :deploy_via, :copy
 set :keep_releases, 5
 
@@ -73,16 +62,8 @@ set :ssh_options, {:forward_agent => true}
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
 namespace :deploy do
-  %w[start stop restart].each do |command|
-    desc "#{command} unicorn server"
-    task command, roles: :app, except: {no_release: true} do
-      run "/etc/init.d/toinon_production_unicorn_init #{command}"
-    end
-  end
 
   task :setup_config, roles: :app do
-    # sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
-    # sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_#{application}"
     run "mkdir -p #{shared_path}/config"
     put File.read("config/database.sample.yml"), "#{shared_path}/config/database.yml"
     puts "Now edit the config files in #{shared_path}."
@@ -103,4 +84,21 @@ namespace :deploy do
     end
   end
   before "deploy", "deploy:check_revision"
+
+  after "deploy", "deploy:restart"
+
+  desc "Zero-downtime restart of Unicorn"
+  task :restart, :except => { :no_release => true } do
+    run "kill -s USR2 `cat #{shared_path}/pids/unicorn.#{application}.pid`"
+  end
+
+  desc "Start unicorn"
+  task :start, :except => { :no_release => true } do
+    run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -D -E #{rails_env}"
+  end
+
+  desc "Stop unicorn"
+  task :stop, :except => { :no_release => true } do
+    run "kill -s QUIT `cat #{shared_path}/pids/unicorn.#{application}.pid`"
+  end
 end

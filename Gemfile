@@ -69,6 +69,7 @@ group :production do
 
   # Use unicorn as the app server
   gem 'unicorn', :platforms => :ruby # linux
+  gem "unicorn-rails", :platforms => :ruby # linux
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

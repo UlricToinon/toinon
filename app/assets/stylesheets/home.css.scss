@@ -1,6 +1,58 @@
 #best-project{
   padding: 70px;
-  .illustration img{
+  .illustration{
+    img {
+      max-width: 100%;
+    }
+  }
+}
+
+#projects{
+  background-color: #282828;
+  padding: 40px 0px;
+  .illustration{
+    img {
+      max-width: 100%;
+    }
+  }
+}
+
+.circle{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #d58422;
+  background: url('/assets/black_lozenge.png');
+  position: absolute;
+  top: -13px;
+  right: -13px;
+}
+#about{
+  padding: 70px;
+  .box{
+    border: 2px solid #d58422;
     max-width: 100%;
+    padding: 7px;
+
+    &.next{
+      margin-top: 50px;
+    }
+
+    .box-inside{
+      border: 2px solid #d58422;
+      padding: 20px;
+      background-color: #282828;
+
+      .presentation{
+        display: inline-block;
+        width: 100%;
+        h2{
+          color: #FFF;
+        }
+        p{
+          color: #FFF;
+        }
+      }
+    }
   }
 }

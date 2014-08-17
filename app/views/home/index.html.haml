@@ -5,20 +5,84 @@
     .col-md-6
       Blablabla
 
-/ %section#projects
-/   .container
-/     .col-md-4
-/       .illustration.col-md-12
-/         = image_tag "Lalaoula.png"
-/       .col-md-12
-/         Blablabla
-/     .col-md-4
-/       .illustration.col-md-12
-/         = image_tag "Lalaoula.png"
-/       .col-md-12
-/         Blablabla
-/     .col-md-4
-/       .illustration.col-md-12
-/         = image_tag "Lalaoula.png"
-/       .col-md-12
-/         Blablabla
+%section#projects
+  .container
+    .col-md-4
+      .illustration
+        = image_tag "Lalaoula.png", class: 'img-responsive'
+      .col-md-12
+        Blablabla
+    .col-md-4
+      .illustration
+        = image_tag "Lalaoula.png", class: 'img-responsive'
+      .col-md-12
+        Blablabla
+    .col-md-4
+      .illustration
+        = image_tag "Lalaoula.png", class: 'img-responsive'
+      .col-md-12
+        Blablabla
+
+%section#about
+  .container
+    .col-md-7
+      .box
+        .box-inside
+          .presentation
+            .col-md-9
+              %h2
+                Ulric Toinon, 22 ans, français
+              %p
+                Originaire de l’île de la Réunion, j’ai décidé de quitter cette île en 2010 pour me lancer dans l’informatique qui a toujours été ma passion depuis l’adolescence.
+            .col-md-3
+              = image_tag 'me.jpg', class: 'img-responsive'
+              .circle
+
+      .box.next
+        .box-inside
+          .presentation
+            .col-md-12
+              %h2
+                Ma formation en quelques mots
+              .col-md-3
+                %p
+                  2013 - 2015
+                %p
+                  2012 - 2013
+                %p
+                  2010 - 2012
+                %p
+                  2010
+              .col-md-9
+                %p
+                  Cycle Master - Réseau, sécurité et service (Efrei)
+                %p
+                  Licence mathématiques et informatique (Efrei)
+                %p
+                  DUT Informatique (IUT Aix en provence)
+                %p
+                  Baccalauréat scientifique - mention bien (Réunion)
+              .circle
+
+      .box.next
+        .box-inside
+          .presentation
+            .col-md-12
+              %h2
+                Mon parcours professionel
+              .col-md-3
+                %p
+                  Avr. 2014
+                %p
+                  2013 - 2014
+                %p
+                  2012
+              .col-md-9
+                %p
+                  Analyste-Développeur chez Pitch-me (6 mois)
+                %p
+                  Analyste-Développeur chez SEPEFREI (+ d’un an)
+                %p
+                  Analyste-Développeur chez Lejely (10 semaines)
+              .circle
+    .col-md-5
