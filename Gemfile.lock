@@ -252,7 +252,7 @@ DEPENDENCIES
   jquery-rails
   meta_request (~> 0.3.0)
   net-ssh (= 2.7.0)
-  pg (= 0.17.0)
+  pg
   rails (= 4.0.0)
   rspec-rails
   rvm-capistrano
