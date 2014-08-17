@@ -52,6 +52,7 @@ require "bundler/capistrano"
 require "rvm/capistrano"
 
 set :stages, %w(production staging development)
+set :default_stage, "production"
 
 set :deploy_via, :copy
 set :keep_releases, 5
