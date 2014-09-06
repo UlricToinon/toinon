@@ -2,6 +2,7 @@ Toinon::Application.configure do
    # Settings specified here will take precedence over those in config/application.rb
   config.assets.initialize_on_precompile = true
   config.assets.precompile += %w( application.js application.css)
+  config.assets.precompile += %w( *.png *.jpg *.jpeg *.gif )
   # Code is not reloaded between requests
   config.cache_classes = true
   # Full error reports are disabled and caching is turned on
