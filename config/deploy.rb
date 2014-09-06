@@ -55,7 +55,7 @@ namespace :deploy do
   end
 
   task :finalize_update do
-    run "cp -R #{release_path}/app/assets/images #{shared_path}/assets"
+    run "cp -R #{release_path}/app/assets/images/* #{shared_path}/assets"
   end
   
   desc "Update the database (overwritten to avoid symlink)"
