@@ -2,14 +2,11 @@
   #social-network
     .container
       .social-link.col-md-12
-        .col-md-offset-4.col-md-4
-          .col-md-4
+        .col-md-offset-4.col-md-4.col-xs-4.col-xs-offset-4
+          .col-md-6.col-xs-6
             = link_to "https://twitter.com/", target: '_blank' do
               = image_tag "twitter.png"
-          .col-md-4
-            = mail_to "ulric.toinon@gmail.com", target: '_blank' do
-              = image_tag "mail.png"
-          .col-md-4
+          .col-md-6.col-xs-6
             = link_to "https://www.linkedin.com/profile/view?id=299455684", target: '_blank' do
               = image_tag "linkedin.png"
       .col-md-12

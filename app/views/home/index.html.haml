@@ -2,8 +2,20 @@
   .container
     .illustration.col-md-6
       = image_tag "Lalaoula.png"
-    .col-md-6
-      Blablabla
+    .description.col-md-6
+      %h2
+        "Réservez une dégustation, une visite gourmande, un atelier culinaire ou un chef à la maison"
+      %p
+        L'objectif du site est de mettre en avant le patrimoine culinaire français et de rassembler tous les terroirs.
+      %p
+        Le site vous permettra d'aller à la rencontre des chefs au travers d'évènements, de cours de cuisine à domicile ou encore en allant directement retirer ses petits plats sur place.
+      %p
+        Le site est basé sur le framework Ruby on Rails. Pour la partie javascript, la librairie jQuery a été utilisé.
+      %p
+        J'ai travaillé sur ce site pendant mon stage d'une durée de 5 mois et demi chez 
+        = link_to 'Pitch me', 'http://www.pitch-me.fr', target: '_blank'
+        \.
+
 
 %section#projects.hide
   .container
@@ -42,47 +54,125 @@
         .box-inside
           .presentation
             .col-md-12
-              %h2
-                Ma formation en quelques mots
-              .col-md-3
-                %p
-                  2013 - 2015
-                %p
-                  2012 - 2013
-                %p
-                  2010 - 2012
-                %p
-                  2010
-              .col-md-9
-                %p
-                  Cycle Master - Réseau, sécurité et service (Efrei)
-                %p
-                  Licence mathématiques et informatique (Efrei)
-                %p
-                  DUT Informatique (IUT Aix en provence)
-                %p
-                  Baccalauréat scientifique - mention bien (Réunion)
-              .circle
+              .row
+                %h2
+                  Ma formation en quelques mots
+                .col-md-12.no-padding
+                  .col-md-3
+                    %p
+                      2013 - 2015
+                  .col-md-9
+                    %p
+                      Cycle Master - Réseau, sécurité et service (Efrei)
+                .col-md-12.no-padding
+                  .col-md-3
+                    %p
+                      2012 - 2013
+                  .col-md-9
+                    %p
+                      Licence mathématiques et informatique (Efrei)
+                .col-md-12.no-padding
+                  .col-md-3
+                    %p
+                      2010 - 2012
+                  .col-md-9
+                    %p
+                      DUT Informatique (IUT Aix en provence)
+                .col-md-12.no-padding
+                  .col-md-3
+                    %p
+                      2010
+                  .col-md-9
+                    %p
+                      Baccalauréat scientifique - mention bien (Réunion)
+                .circle
 
       .box.next
         .box-inside
           .presentation
             .col-md-12
-              %h2
-                Mon parcours professionel
-              .col-md-3
-                %p
-                  Avr. 2014
-                %p
-                  2013 - 2014
-                %p
-                  2012
-              .col-md-9
-                %p
-                  Analyste-Développeur chez Pitch-me (6 mois)
-                %p
-                  Analyste-Développeur chez SEPEFREI (+ d’un an)
-                %p
-                  Analyste-Développeur chez Lejely (10 semaines)
-              .circle
+              .row
+                %h2
+                  Mon parcours professionel
+                .col-md-12.no-padding
+                  .col-md-3
+                    %p
+                      Avr. 2014
+                  .col-md-9
+                    %p
+                      Analyste-Développeur chez Pitch-me (6 mois)
+                .col-md-12.no-padding
+                  .col-md-3
+                    %p
+                      2013 - 2014
+                  .col-md-9
+                    %p
+                      Analyste-Développeur chez SEPEFREI (+ d’un an)
+                .col-md-12.no-padding
+                  .col-md-3
+                    %p
+                      2012
+                  .col-md-9
+                    %p
+                      Analyste-Développeur chez Lejely (10 semaines)
+                .circle
     .col-md-5
+      .box.next
+        .box-inside
+          .presentation.competence
+            .col-md-12
+              .row
+                %h2.center
+                  Mes compétences
+            .col-md-12
+              .row
+                %h3
+                  Langages
+                .col-md-6
+                  %ul
+                    %li
+                      C++
+                    %li
+                      Java
+                .col-md-6  
+                  %ul  
+                    %li
+                      Ruby
+                    %li
+                      Php
+                    %li
+                      HTML5 / CSS3
+            .col-md-12
+              .row
+                %h3
+                  Frameworks
+                .col-md-6
+                  %ul
+                    %li
+                      Ruby on Rails
+                    %li
+                      NodeJS
+                    %li
+                      Laravel
+                .col-md-6  
+                  %ul  
+                    %li
+                      Symphony 2
+                    %li
+                      Play!
+            .col-md-12
+              .row
+                %h3
+                  Outils de développement
+                .col-md-6
+                  %ul
+                    %li
+                      jQuery (UI, Mobile)
+                    %li
+                      AngularJS
+                .col-md-6  
+                  %ul  
+                    %li
+                      Android SDK
+                    %li
+                      Phonegap

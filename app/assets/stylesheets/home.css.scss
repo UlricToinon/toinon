@@ -5,6 +5,26 @@
       max-width: 100%;
     }
   }
+  .description{
+    color: white;
+    h2{
+      margin-top: 0px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-style: italic;
+      color: #d58422;
+    }
+
+    p{
+      font-size: 20px;
+      text-align: justify;
+      margin-bottom: 15px;
+
+      a{
+        color: #d58422;
+      }
+    }
+  }
 }
 
 #projects{
@@ -51,6 +71,17 @@
         }
         p{
           color: #FFF;
+        }
+
+        &.competence{
+          h3{
+            color: #FFF;
+            text-decoration: underline;
+          }
+
+          ul li{
+            color: #FFF;
+          }
         }
       }
     }

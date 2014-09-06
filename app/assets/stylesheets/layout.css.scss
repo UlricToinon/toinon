@@ -22,8 +22,20 @@ footer{
   }
   .social-link{
     padding: 10px;
-    img{
-      max-width: 100%;
+    a{
+      width: 50%;
+
+      img{
+        max-width: 100%;
+      }
     }
   }
+}
+
+.no-padding{
+  padding: 0;
+}
+
+.center{
+  text-align: center;
 }
