@@ -53,6 +53,10 @@ namespace :deploy do
     run "cd #{current_path}; git fetch origin; git reset --hard #{branch}"
     finalize_update
   end
+
+  task :finalize_update do
+    run "cp -R #{release_path}/app/assets/images #{shared_path}/assets"
+  end
   
   desc "Update the database (overwritten to avoid symlink)"
     task :migrations do
@@ -86,8 +90,6 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
   after "deploy:finalize_update", "deploy:symlink_config"
-
-  after "deploy", "deploy:restart"
 
   desc "Zero-downtime restart of Unicorn"
   task :restart, :except => { :no_release => true } do
