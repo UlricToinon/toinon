@@ -1,5 +1,5 @@
 
-server "www.toinon.re", :app, :web, :db, primary: true
+server "prod.toinon.re", :app, :web, :db, primary: true
 set :rails_env, 'production'
 
 set :application, "toinon"
