@@ -20,8 +20,6 @@ set(:current_revision) { capture("cd #{current_path}; git rev-parse --short HEAD
 set(:latest_revision) { capture("cd #{current_path}; git rev-parse --short HEAD").strip }
 set(:previous_revision) { capture("cd #{current_path}; git rev-parse --short HEAD@{1}").strip }
 
-after "deploy", "deploy:cleanup" # keep only the last 5 releases
-
 namespace :deploy do
 
   desc "Deploy your application"
