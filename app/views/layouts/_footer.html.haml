@@ -1,12 +1,21 @@
 %footer
   #social-network
     .container
-      .social-link.col-md-12
-        .col-md-offset-4.col-md-4.col-xs-4.col-xs-offset-4
-          .col-md-6.col-xs-6
-            = link_to "https://twitter.com/", target: '_blank' do
-              = image_tag "twitter.png"
-          .col-md-6.col-xs-6
+      .col-md-12
+        .col-md-6.col-xs-6.link-inside
+          .col-md-12
+            = link_to 'Contact', '#'
+          .col-md-12
+            = link_to 'Mon github', 'https://github.com/UlricToinon'
+        .col-md-6.col-xs-6
+          .wrap-icon
             = link_to "https://www.linkedin.com/profile/view?id=299455684", target: '_blank' do
               = image_tag "linkedin.png"
+            = link_to "https://twitter.com/ulrictoinon", target: '_blank' do
+              = image_tag "twitter.png"
+  
+  #copyright
+    .container
       .col-md-12
+        %p
+          Copyright 2014 - Toinon 

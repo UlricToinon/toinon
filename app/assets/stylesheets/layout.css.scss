@@ -20,14 +20,45 @@ footer{
     border-top: 1px solid #d58422;
     border-bottom: 1px solid #d58422;
   }
-  .social-link{
+  .link-inside{
     padding: 10px;
+    h2{
+      font-size: 25px;
+    }
     a{
-      width: 50%;
-
-      img{
-        max-width: 100%;
+      color: #FFF;
+      font-size: 22px;
+      &:hover{
+        color: #d58422;
+        text-decoration: none;
       }
+    }
+  }
+  .wrap-icon{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding: 10px 5px;
+    a{
+      display: inline;
+      max-width: 50%;
+      max-height: 60px;
+      padding: 5px;
+      float: right;
+      img{
+        height: 60px;
+        width: 60px;
+      }
+    }
+  }
+
+  #copyright{
+    background-color: rgba(20, 19, 19, 1);
+    p{
+      padding: 10px; 
+      text-align: center;
+      font-size: 25px;
+      color: #FFF;
     }
   }
 }
