@@ -7,7 +7,7 @@ worker_processes 4
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
-listen "/home/deploy/sites/toinon_production/shared/sockets/unicorn.toinon_production.sock", :backlog => 128
+listen "/home/toinon/sites/toinon_production/shared/sockets/unicorn.toinon_production.sock", :backlog => 128
 
 # Preload our app for more speed
 preload_app false
@@ -15,17 +15,17 @@ preload_app false
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
 
-pid "/home/deploy/sites/toinon_production/shared/pids/unicorn.toinon_production.pid"
+pid "/home/toinon/sites/toinon_production/shared/pids/unicorn.toinon_production.pid"
 
 # Production specific settings
 if env == "production"
   # Help ensure your application will always spawn in the symlinked
   # "current" directory that Capistrano sets up.
-  working_directory "/home/deploy/sites/toinon_production/current"
+  working_directory "/home/toinon/sites/toinon_production/current"
 
   # feel free to point this anywhere accessible on the filesystem
-  user 'deploy'
-  shared_path = "/home/deploy/sites/toinon_production/shared"
+  user 'toinon'
+  shared_path = "/home/toinon/sites/toinon_production/shared"
 
   stderr_path "#{shared_path}/log/unicorn.stderr.log"
   stdout_path "#{shared_path}/log/unicorn.stdout.log"
@@ -40,7 +40,7 @@ before_fork do |server, worker|
 
   # Before forking, kill the master process that belongs to the .oldbin PID.
   # This enables 0 downtime deploys.
-  old_pid = "/home/deploy/sites/toinon_production/shared/pids/unicorn.toinon_production.pid.oldbin"
+  old_pid = "/home/toinon/sites/toinon_production/shared/pids/unicorn.toinon_production.pid.oldbin"
   if File.exists?(old_pid) && server.pid != old_pid
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)

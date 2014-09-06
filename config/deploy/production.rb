@@ -2,12 +2,12 @@
 server "www.toinon.re", :app, :web, :db, primary: true
 set :rails_env, 'production'
 
-set :application, "toinon_production"
-set :user, "deploy"
+set :application, "toinon"
+set :user, "toinon"
 set :port, 22
-set :deploy_to, "/home/#{user}/sites/#{application}"
+set :deploy_to, "/home/#{user}/sites/#{application}_production"
 set :use_sudo, false
 
 set :scm, "git"
-set :repository, "git@github.com:UlricToinon/Toinon.git"
+set :repository, "git@github.com:UlricToinon/#{application}.git"
 set :branch, "master"
