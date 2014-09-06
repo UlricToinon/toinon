@@ -91,3 +91,6 @@ gem 'rvm-capistrano'
 gem 'google-analytics-rails'
 
 gem 'net-ssh', '2.7.0'
+
+# Gem pour prévenir les dev des erreurs 500 par email
+gem 'exception_notification'
